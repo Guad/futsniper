@@ -19,7 +19,7 @@ THRESHOLD - if the profit is bigger than this, we buy the card
 OPTIONAL:
 PLATFORM - defaults to pc
 """
-settings = {'PLATFORM': 'pc', 'EMAIL':'none', 'PASSWORD':'none', 'SECRET':'none'}
+settings = {'PLATFORM': 'pc', 'EMAIL':'none', 'PASSWORD':'none', 'SECRET':'none', 'TIMER':70, 'RANDOMTIMER':30}
 with open('account.ini', 'r') as options:
 	for line in options.read().splitlines():
 		line = line.split('==')

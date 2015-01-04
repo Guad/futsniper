@@ -59,4 +59,4 @@ while True:
 	else:
 		print 'It\'s not enough. Sleeping...'
 	x += 1
-	time.sleep(45 + random.randint(1, 30))
+	time.sleep(int(futcore.settings['TIMER']) + random.randint(1, int(futcore.settings['RANDOMTIMER']))
