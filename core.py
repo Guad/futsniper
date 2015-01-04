@@ -46,32 +46,26 @@ def logIntoFut(code=''):
 		else:
 			print ex
 
-def searchPlayer(playerid, min_price=0, max_price=15000000, min_buy=0, max_buy=15000000, page=0):
-	items = fifa.searchAuctions('player', assetId=int(playerid), min_price=min_price, max_price=max_price, min_buy=min_buy, max_buy=max_buy, start=page)
+def searchPlayer(playerid, min_price=0, max_price=15000000, min_buy=0, max_buy=15000000, page=0, pagesize=13):
+	items = fifa.searchAuctions('player', assetId=int(playerid), min_price=min_price, max_price=max_price, min_buy=min_buy, max_buy=max_buy, start=page, page_size=pagesize)
 	return items
 
 def findLowestBin(playerid):
-	pass
+	items = searchPlayer(int(playerid), pagesize=26)
+	cards = []
+	for item in items:
+		cards.append(item)
+	orderedCards = sorted(cards, key=lambda k: k['buyNowPrice'])
+	return orderedCards[0]
 
-"""
-PROGRAM INITIALIZATION
-"""
-logIntoFut()
+def findAverageBin(playerid):
+	items = searchPlayer(int(playerid), pagesize=26)
+	cards = []
+	for item in items:
+		cards.append(item['buyNowPrice'])
+	return reduce(lambda x, y: x + y, cards) / len(cards)
 
-if loggedin:
-	print 'You have:', fifa.credits, 'FIFA credits.'
-	inp = ''
-	while not inp == 'quit':
-		inp = raw_input('Search for player: ')
-		if not inp == 'quit':
-			myCard = fifa.cardInfo(int(inp))['Item']
-			print 'Looking for', myCard['FirstName'], myCard['LastName'], '. . .'
-			with open('market.log', 'w') as log:
-				trades = {}
-				for item in searchPlayer(inp):
-					trades[item['buyNowPrice']] = {'ID':item['tradeId'], 'Owner':item['sellerName']}
-					log.write(str(item))
-					log.write('\n'*5)
-			print 'Lowest price is', str(min(trades)), 'sold by', trades[min(trades)]['Owner'] + '(' + str(trades[min(trades)]['ID']) + ')'
-		else:
-			break
+def testMe():
+	print 'It worked!'
+	raw_input()
+
