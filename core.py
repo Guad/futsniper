@@ -58,7 +58,6 @@ PROGRAM INITIALIZATION
 """
 logIntoFut()
 
-
 if loggedin:
 	print 'You have:', fifa.credits, 'FIFA credits.'
 	inp = ''
