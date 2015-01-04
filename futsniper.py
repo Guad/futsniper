@@ -47,13 +47,15 @@ while True:
 	entry += "Enough?: " + str(percent >= int(futcore.settings['THRESHOLD'])) + '\n'
 	logAction(entry)
 	if percent >= int(futcore.settings['THRESHOLD']) and lowestCards[0]['buyNowPrice'] > fifa.credits: #PROFIT!
-		print 'Enough for me. BUYING!'
-		entry =  ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-		entry += "BUYING PLAYER '" + player['Player'] + "'\n"
-		entry += ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
-		logAction(entry)
-		time.sleep(1 + random.randint(1, 4))
-		#futcore.buyPlayer(fifa, lowestCards[0]['trade_id'], lowestCards[0]['buyNowPrice'])
+		if futcore.checkLowerPrice(fifa, player['ID'], lowestCards[0]['buyNowPrice']):
+			print 'Enough for me. BUYING!'
+			entry =  ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
+			entry += "BUYING PLAYER '" + player['Player'] + "'\n"
+			entry += ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
+			print entry
+			logAction(entry)
+			time.sleep(1 + random.randint(1, 4))
+			futcore.buyPlayer(fifa, lowestCards[0]['trade_id'], lowestCards[0]['buyNowPrice'])
 	else:
 		print 'It\'s not enough. Sleeping...'
 	x += 1

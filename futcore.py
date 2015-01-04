@@ -71,6 +71,14 @@ def quickBuyPlayer(engine, tradeid, price):
 	time.sleep(random.random())
 	engine.bid(tradeid, price)
 
+def checkLowerPrice(engine, playerid, price):
+	time.sleep(random.random())
+	items = searchPlayer(engine, playerid, max_buy=price)
+	if len(items) < 13:
+		return True
+	else:
+		return False
+
 if __name__ == "__main__":
 	print 'You have:', fifa.credits, 'FIFA credits.'
 	inp = ''
