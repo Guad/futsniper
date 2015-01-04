@@ -42,7 +42,9 @@ while True:
 	player = watchlist[x%len(watchlist)]
 	print 'Monitoring', player['Player'], '. . .'
 	lowestCards = futcore.findLowestBins(fifa, player['ID'])
+	averageCost = futcore.findAverageBin(fifa, player['ID'])
 	percent = 100-((lowestCards[0]['buyNowPrice'] / float(lowestCards[1]['buyNowPrice']))*100)
+	averagePercent = 100-((lowestCards[0]['buyNowPrice'] / float(averageCost))*100)
 	print 'Possible profit is', str(percent)[:4] + '%', 'since the cheapest is', lowestCards[0]['buyNowPrice'], 'and the second is', lowestCards[1]['buyNowPrice']
 	entry =  "=====LOG ENTRY" + strftime("%H:%M:%S") + "=====\n"
 	entry += "Inspected Player: " + player['Player'] + '\n'
@@ -50,7 +52,7 @@ while True:
 	entry += "Threshold: " + futcore.settings['THRESHOLD'] +'\n'
 	entry += "Enough?: " + str(percent >= int(futcore.settings['THRESHOLD'])) + '\n'
 	logAction(entry)
-	if percent >= int(futcore.settings['THRESHOLD']) and lowestCards[0]['buyNowPrice'] > fifa.credits: #PROFIT!
+	if percent >= int(futcore.settings['THRESHOLD']) and averagePercent >= int(futcore.settings['THRESHOLD']) and lowestCards[0]['buyNowPrice'] > fifa.credits: #PROFIT!
 		if futcore.checkLowerPrice(fifa, player['ID'], lowestCards[0]['buyNowPrice']):
 			print 'Enough for me. BUYING!'
 			entry =  ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
