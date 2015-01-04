@@ -7,7 +7,7 @@ fifa = futcore.logIntoFut()
 while str(type(fifa)) == "<type 'str'>":
 	fifa = futcore.logIntoFut(fifa)
 
-
+watchlist = []
 """
 LOAD THE WATCHLIST
 STRUCTURE:
@@ -15,15 +15,19 @@ Player Name##AssetID
 ex:
 Gareth Bale##173731
 """
-watchlist = []
-with open('watchlist.ini', 'r') as playas:
-	for line in playas.read().splitlines():
-		line = line.split('##')
-		watchlist.append({'Player':line[0], 'ID':line[1]})
-"""##"""
+
 def logAction(text):
 	with open(strftime("%Y-%m-%d") + '-fifa.log', 'a') as ourLog:
 		ourLog.write(text + '\n')
+
+def updateWatchlist():
+	global watchlist
+	watchlist = []
+	with open('watchlist.ini', 'r') as playas:
+		for line in playas.read().splitlines():
+			line = line.split('##')
+			watchlist.append({'Player':line[0], 'ID':line[1]})
+updateWatchlist()
 
 def keepAlive():
 	global fifa
@@ -59,4 +63,5 @@ while True:
 	else:
 		print 'It\'s not enough. Sleeping...'
 	x += 1
+	updateWatchlist()
 	time.sleep(int(futcore.settings['TIMER']) + random.randint(1, int(futcore.settings['RANDOMTIMER'])))
