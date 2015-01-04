@@ -50,17 +50,22 @@ def searchPlayer(playerid, min_price=0, max_price=15000000, min_buy=0, max_buy=1
 	items = fifa.searchAuctions('player', assetId=int(playerid), min_price=min_price, max_price=max_price, min_buy=min_buy, max_buy=max_buy, start=page)
 	return items
 
+def findLowestBin(playerid):
+	pass
+
 """
 PROGRAM INITIALIZATION
 """
 logIntoFut()
+
+
 if loggedin:
 	print 'You have:', fifa.credits, 'FIFA credits.'
 	inp = ''
 	while not inp == 'quit':
 		inp = raw_input('Search for player: ')
 		if not inp == 'quit':
-			myCard = fifa.cardInfo(int(inp))
+			myCard = fifa.cardInfo(int(inp))['Item']
 			print 'Looking for', myCard['FirstName'], myCard['LastName'], '. . .'
 			with open('market.log', 'w') as log:
 				trades = {}
