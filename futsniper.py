@@ -34,7 +34,7 @@ def keepAlive():
 	if fifa:
 		fifa.keepalive()
 		print 'Keeping alive..'
-		Timer(300, keepAlive, ()).start()
+		Timer(120, keepAlive, ()).start()
 keepAlive()
 
 x = 0
