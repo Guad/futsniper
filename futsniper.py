@@ -82,7 +82,8 @@ while True:
 			logAction(entry)
 			time.sleep(1 + random.randint(1, 4))
 
-			futcore.quickBuyPlayer(fifa, lowestCards[0]['trade_id'], lowestCards[0]['buyNowPrice'])
+			futcore.quickBuyPlayer(fifa, lowestCards[0]['tradeId'], lowestCards[0]['buyNowPrice'])
+			
 	elif profit >= int(futcore.settings['MINPROFIT']) and lowestCards[0]['buyNowPrice'] < fifa.credits:
 		if futcore.checkLowerPrice(fifa, player['ID'], lowestCards[0]['buyNowPrice']):
 			print 'Seeing a good profit of %i. BUYING!' % profit
@@ -94,7 +95,7 @@ while True:
 			print entry
 			logAction(entry)
 			time.sleep(1 + random.randint(1, 4))
-			futcore.quickBuyPlayer(fifa, lowestCards[0]['trade_id'], lowestCards[0]['buyNowPrice'])
+			futcore.quickBuyPlayer(fifa, lowestCards[0]['tradeId'], lowestCards[0]['buyNowPrice'])
 			time.sleep(10 + random.randint(1, 20))
 			futcore.sellPlayer(fifa, int(player['ID']), lowestCards[1]['buyNowPrice'])
 	else:
