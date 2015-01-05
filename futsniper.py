@@ -4,7 +4,7 @@ import random
 from time import strftime
 from threading import Timer	
 fifa = futcore.logIntoFut()
-while str(type(fifa)) == "<type 'str'>":
+while str(type(fifa)) == "<type 'str'>" or not fifa:
 	fifa = futcore.logIntoFut(fifa)
 
 watchlist = []
