@@ -82,7 +82,7 @@ def sellPlayer(engine, playerid, price):
 	items = engine.unassigned()
 	for item in items:
 		if item['assetId'] == playerid:
-			engine.sell(item['item_id'], price-1000, buy_now=price)
+			engine.sell(item['id'], price-1000, buy_now=price)
 
 if __name__ == "__main__":
 	print 'You have:', fifa.credits, 'FIFA credits.'
