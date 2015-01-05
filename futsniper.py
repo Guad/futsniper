@@ -45,6 +45,8 @@ def keepAlive():
 		Timer(120, keepAlive, ()).start()
 keepAlive()
 
+print 'You have ' + str(fifa.credits) + ' FIFA coins.\n'
+
 x = 0
 while True:
 	player = watchlist[x%len(watchlist)]
