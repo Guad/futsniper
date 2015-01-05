@@ -19,7 +19,7 @@ THRESHOLD - if the profit is bigger than this, we buy the card
 OPTIONAL:
 PLATFORM - defaults to pc
 """
-settings = {'PLATFORM': 'pc', 'EMAIL':'none', 'PASSWORD':'none', 'SECRET':'none', 'TIMER':70, 'RANDOMTIMER':30}
+settings = {'PLATFORM': 'pc', 'EMAIL':'none', 'PASSWORD':'none', 'SECRET':'none', 'TIMER':70, 'RANDOMTIMER':30, 'MINPROFIT':5000}
 with open('account.ini', 'r') as options:
 	for line in options.read().splitlines():
 		line = line.split('==')
@@ -78,6 +78,11 @@ def checkLowerPrice(engine, playerid, price):
 		return True
 	else:
 		return False
+def sellPlayer(engine, playerid, price):
+	items = engine.unassigned()
+	for item in items:
+		if item['assetId'] == playerid:
+			engine.sell(item['item_id'], price-1000, buy_now=price)
 
 if __name__ == "__main__":
 	print 'You have:', fifa.credits, 'FIFA credits.'
